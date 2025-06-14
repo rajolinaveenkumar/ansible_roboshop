@@ -38,8 +38,8 @@
   
   - name: copy expense config
     ansible.builtin.copy:
-      src: 
-      dest: 
+      src: 11-nginx.conf
+      dest: /etc/nginx/nginx.conf
       
 
   - name: Start and enable the nginx service 
