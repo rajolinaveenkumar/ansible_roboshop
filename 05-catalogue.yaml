@@ -22,7 +22,39 @@
       home: /app
       shell: /bin/bash
 
-  - name: create app directory
+  - name: create app directory 
     ansible.builtin.file:
       state: directory
       path: /app
+
+  - name: download catalogue content
+    ansible.builtin.unarchive:
+      src: https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip
+      dest: /app
+      remote_src: yes
+
+  - name: Install packages based on package.json
+    community.general.npm:
+      path: /app
+
+  - name: copy catalogue service file
+    ansible.builtin.copy:
+      src: 05-catalogue.service
+      dest: /etc/systemd/system/catalogue.service
+
+  - name:  daemon realod , enabled and start the service 
+    ansible.builtin.systemd_service:
+      daemon_reload: true
+      name: catalogue
+      state: start
+      enabled: true
+
+  - name: copy MongoDB repo file
+    ansible.builtin.copy:
+      src: 01-mongo.repo
+      dest: /etc/yum.repos.d/mongo.repo
+
+  - name: installing mongodb
+    ansible.builtin.dnf:
+      name: mongodb-org
+      state: installed
