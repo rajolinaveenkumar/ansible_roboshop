@@ -11,7 +11,7 @@
   - name: installing python libraries 
     ansible.builtin.pip:
       name: "{{ item }}"
-      state: pip3.9
+      executable: pip3.9
     loop:
     - boto
     - boto3
