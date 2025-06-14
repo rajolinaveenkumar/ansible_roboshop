@@ -2,16 +2,9 @@
   hosts: shipping_servers
   become: yes
   tasks:
-  - name: Disable the nodejs module
-    ansible.builtin.command:
-      cmd: "dnf module disable nodejs -y" # OR we give like this also --> dnf module disable nodejs -y, with out this " "
-
-  - name: enable nodejs:20 
-    ansible.builtin.command: "dnf module enable nodejs:20 -y"
-
-  - name: installing nodejs 
+  - name: installing maven 
     ansible.builtin.dnf:
-      name: nodejs
+      name: maven
       state: installed 
 
   - name: create user for roboshop project 
@@ -29,6 +22,18 @@
 
   - name: download catalogue content
     ansible.builtin.unarchive:
-      src: https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip
+      src: https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip
       dest: /app
       remote_src: yes
+
+  - name: install maven dependencies
+    ansible.builtin.command: mvn clean package
+    args:
+      chdir: /app
+
+  - name: rename jar file
+    ansible.builtin.command: mv target/shipping-1.0.jar shipping.jar
+    args:
+      chdir: /app
+
+  
