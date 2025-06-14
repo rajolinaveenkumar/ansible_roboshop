@@ -1,0 +1,35 @@
+- name: Installing payment component for Roboshop project
+  hosts: payment_servers
+  become: yes
+  tasks:
+  - name: installing python3 pac`
+    ansible.builtin.dnf:
+      name: "{{ item }}"
+      state: installed 
+    loop:
+    - python3
+    - gcc
+    - python3-devel
+
+  - name: create user for roboshop project 
+    ansible.builtin.user:
+      name: roboshop
+      state: present
+      comment: "roboshop system user"
+      home: /app
+      shell: /bin/bash
+
+  - name: create app directory 
+    ansible.builtin.file:
+      state: directory
+      path: /app
+
+  - name: download catalogue content
+    ansible.builtin.unarchive:
+      src: https://roboshop-artifacts.s3.amazonaws.com/payment-v3.zip
+      dest: /app
+      remote_src: yes
+
+  - name: Install bottle python package
+    ansible.builtin.pip:
+      requirements: /app/requirements.txt

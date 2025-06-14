@@ -36,6 +36,11 @@
     args:
       chdir: /app
 
+  - name: copy shipping service file
+    ansible.builtin.copy:
+      src: 08-shipping.service
+      dest: /etc/systemd/system/shipping.service
+
   - name:  daemon realod , enabled and start the service 
     ansible.builtin.systemd_service:
       daemon_reload: true
