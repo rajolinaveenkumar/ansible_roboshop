@@ -1,6 +1,5 @@
 - name: Creating EC2 instances for roboshop
   hosts: localhost
-  become: yes
   vars:
     IMG_ID: ami-09c813fb71547fc4f
     SECRITY_GROUP: sg-087f3838223040db0
