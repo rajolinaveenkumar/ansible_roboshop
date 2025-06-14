@@ -1,5 +1,5 @@
 - name: Installing cart component for Roboshop project
-  hosts: carts_servers
+  hosts: cart_servers
   become: yes
   tasks:
   - name: Disable the nodejs module

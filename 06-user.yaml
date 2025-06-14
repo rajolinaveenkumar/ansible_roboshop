@@ -1,5 +1,5 @@
 - name: Installing user component for Roboshop project
-  hosts: users_servers
+  hosts: user_servers
   become: yes
   tasks:
   - name: Disable the nodejs module
