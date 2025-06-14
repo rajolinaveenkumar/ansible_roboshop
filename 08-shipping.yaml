@@ -36,4 +36,34 @@
     args:
       chdir: /app
 
+  - name:  daemon realod , enabled and start the service 
+    ansible.builtin.systemd_service:
+      daemon_reload: true
+      name: shipping
+      state: started
+      enabled: true
+
+  - name: install mysql
+    ansible.builtin.dnf:
+      name: mysql-server
+      state: installed
+
+  - name: Load the schema into database
+    community.mysql.mysql_db:
+      name: all
+      login_host: mysql.naveenrajoli.site
+      login_user: root
+      login_password: RoboShop@1
+      state: import
+      target: "{{ item }}"
+    loop:
+    - /app/db/schema.sql
+    - /app/db/app-user.sql 
+    - /app/db/master-data.sql
+
+  - name:  daemon realod , enabled and start the service 
+    ansible.builtin.systemd_service:
+      daemon_reload: true
+      name: shipping
+      state: started
   
