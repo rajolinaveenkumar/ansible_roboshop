@@ -34,11 +34,11 @@
     - rabbitmq
     register: ec2_info
 
-  - name: print ec2 information
-    ansible.builtin.debug:
-      msg: "{{ ec2_info }}"
+  # - name: print ec2 information
+  #   ansible.builtin.debug:
+  #     msg: "{{ ec2_info }}"
 
   - name: print private ip address
     ansible.builtin.debug:
-      msg: "{{ ec2_info.results }}"
+      msg: "{{ ec2_info.results.instances[@] }}"
   
