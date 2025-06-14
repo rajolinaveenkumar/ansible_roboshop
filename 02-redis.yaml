@@ -21,3 +21,9 @@
     loop:
     - { old: 127.0.0.1, new: 0.0.0.0}
     - { old: "protected-mode yes", new: "protected-mode no" }
+
+  - name: start redis service
+    ansible.builtin.service:
+      name: redis
+      state: started
+      enabled: true
