@@ -19,7 +19,7 @@
       name: roboshop
       state: present
       comment: "roboshop system user"
-      create_home: /app
+      home: /app
       shell: /bin/bash
 
   - name: create app directory
