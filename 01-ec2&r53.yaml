@@ -68,6 +68,8 @@
       overwrite: true
     loop: "{{ ec2_info.results }}"
     when: item.item == mysql
+    tags:
+    - ok
 
 
   
