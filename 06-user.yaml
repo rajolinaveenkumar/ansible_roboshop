@@ -1,0 +1,50 @@
+- name: Installing user component for Roboshop project
+  hosts: users_servers
+  become: yes
+  tasks:
+  - name: Disable the nodejs module
+    ansible.builtin.command:
+      cmd: "dnf module disable nodejs -y" # OR we give like this also --> dnf module disable nodejs -y, with out this " "
+
+  - name: enable nodejs:20 
+    ansible.builtin.command: "dnf module enable nodejs:20 -y"
+
+  - name: installing nodejs 
+    ansible.builtin.dnf:
+      name: nodejs
+      state: installed 
+
+  - name: create user for roboshop project 
+    ansible.builtin.user:
+      name: roboshop
+      state: present
+      comment: "roboshop system user"
+      home: /app
+      shell: /bin/bash
+
+  - name: create app directory 
+    ansible.builtin.file:
+      state: directory
+      path: /app
+
+  - name: download catalogue content
+    ansible.builtin.unarchive:
+      src: https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip
+      dest: /app
+      remote_src: yes
+
+  - name: Install packages based on package.json
+    community.general.npm:
+      path: /app
+
+  - name: copy catalogue service file
+    ansible.builtin.copy:
+      src: 06-user.service
+      dest: /etc/systemd/system/user.service
+
+  - name:  daemon realod , enabled and start the service 
+    ansible.builtin.systemd_service:
+      daemon_reload: true
+      name: user
+      state: started
+      enabled: true
