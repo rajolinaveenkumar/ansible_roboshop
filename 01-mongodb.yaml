@@ -29,5 +29,5 @@
   handlers:
   - name: restart mongod service 
     ansible.builtin.service:
-      name: mongodb
+      name: mongod
       state: restarted
