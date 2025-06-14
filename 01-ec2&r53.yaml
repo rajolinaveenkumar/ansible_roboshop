@@ -7,16 +7,16 @@
     REGION: us-east-1
     INSTANCE_TYPE: t3.micro
   tasks:
-  - name: installing python libraries 
-    ansible.builtin.pip:
-      name: "{{ item }}"
-      executable: pip3.9
-    loop:
-    - boto
-    - boto3
-    - botocore
-    - PyMySQL
-    - cryptography
+  # - name: installing python libraries 
+  #   ansible.builtin.pip:
+  #     name: "{{ item }}"
+  #     executable: pip3.9
+  #   loop:
+  #   - boto
+  #   - boto3
+  #   - botocore
+  #   - PyMySQL
+  #   - cryptography
 
 
   - name: Creating EC2 instances
