@@ -36,6 +36,7 @@
     - catalogue
     - user
     - cart
+    - shipping
     register: ec2_info
 
   # - name: print ec2 information
