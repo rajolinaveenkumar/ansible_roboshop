@@ -1,4 +1,4 @@
-- name: Installing MySQL database for expense project
+- name: Installing MySQL database for Roboshop project
   hosts: mysql_servers
   become: yes
   vars:

@@ -1,4 +1,4 @@
-- name: installing redis database
+- name: Installing Redis database for Roboshop project
   hosts: redis_servers
   become: yes
   tasks:

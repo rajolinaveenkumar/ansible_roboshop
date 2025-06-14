@@ -1,0 +1,28 @@
+- name: Installing catalogue component for Roboshop project
+  hosts: catalogue_servers
+  become: yes
+  tasks:
+  - name: Disable the nodejs module
+    ansible.builtin.command:
+      cmd: "dnf module disable nodejs -y" # OR we give like this also --> dnf module disable nodejs -y, with out this " "
+
+  - name: enable nodejs:20 
+    ansible.builtin.command: "dnf module enable nodejs:20 -y"
+
+  - name: installing nodejs 
+    ansible.builtin.dnf:
+      name: nodejs
+      state: installed 
+
+  - name: create user for roboshop project 
+    ansible.builtin.user:
+      name: roboshop
+      state: present
+      comment: "roboshop system user"
+      create_home: /app
+      shell: /bin/bash
+
+  - name: create app directory
+    ansible.builtin.file:
+      state: directory
+      path: /app

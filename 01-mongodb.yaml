@@ -1,4 +1,4 @@
-- name: installing mongodb
+- name: Installing MongoDB database for Roboshop project
   hosts: mongodb_servers
   become: yes
   vars:

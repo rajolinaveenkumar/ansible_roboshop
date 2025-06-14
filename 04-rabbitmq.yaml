@@ -1,4 +1,4 @@
-- name: installing rabbit mq server
+- name: Installing Rabbitmq for Roboshop project
   hosts: rabbitmq_servers
   become: true
   tasks:
