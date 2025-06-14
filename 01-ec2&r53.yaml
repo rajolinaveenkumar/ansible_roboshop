@@ -6,6 +6,7 @@
     SUBNET_ID: subnet-08933a042f7aa0d82
     REGION: us-east-1
     INSTANCE_TYPE: t3.micro
+    ZONE_NAME: naveenrajoli.site
   tasks:
   # - name: installing python libraries 
   #   ansible.builtin.pip:
@@ -42,4 +43,31 @@
     ansible.builtin.debug:
       msg: "{{ item.instances[0].private_ip_address }}"
     loop: "{{ ec2_info.results }}"
+
+  - name: create private ip address
+    amazon.aws.route53:
+      state: present
+      zone: "{{ ZONE_NAME }}"
+      record: "{{ item.item }}.{{ ZONE_NAME }}"
+      type: A
+      ttl: 1
+      value: "{{ item.instances[0].private_ip_address }}"
+      wait: true
+      overwrite: true
+    loop: "{{ ec2_info.results }}"
+
+  - name: create public ip adress for web servers
+    amazon.aws.route53:
+      state: present
+      zone: "{{ ZONE_NAME }}"
+      record: "{{ item.item }}.{{ ZONE_NAME }}"
+      type: A
+      ttl: 1
+      value: "{{ item.instances[0].public_ip_address }}"
+      wait: true
+      overwrite: true
+    loop: "{{ ec2_info.results }}"
+    when: item.item == mysql
+
+
   
