@@ -33,3 +33,18 @@
   - name: Install bottle python package
     ansible.builtin.pip:
       requirements: /app/requirements.txt
+
+  - name: copy payment service file
+    ansible.builtin.copy:
+      src: 09-payment.service
+      dest: /etc/systemd/system/payment.service
+
+  - name:  daemon realod , enabled and start the service 
+    ansible.builtin.systemd_service:
+      daemon_reload: true
+      name: payment
+      state: started
+      enabled: true
+
+
+  
