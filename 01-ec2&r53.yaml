@@ -38,7 +38,7 @@
     ansible.builtin.debug:
       msg: "{{ ec2_info }}"
 
-  # - name: print private ip address
-  #   ansible.builtin.debug:
-  #     msg:
+  - name: print private ip address
+    ansible.builtin.debug:
+      msg: "{{ ec2_info.results }}"
   
