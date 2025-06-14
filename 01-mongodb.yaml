@@ -20,8 +20,12 @@
       enabled: true
 
   - name: editing mongodb configuration file 
-    ansible.builtin.lineinfile:
+    ansible.builtin.replace:
       path: /etc/mongod.conf
-      regexp: "bindIp: 127.0.0.1"
-      line: "bindIp: 0.0.0.0"
-
+      regexp: "127.0.0.1"
+      line: "0.0.0.0"
+    handlers:
+    - name: restart nginx 
+      ansible.builtin.service:
+        name: mongodb
+        state: restarted
