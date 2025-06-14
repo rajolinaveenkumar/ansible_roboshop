@@ -24,8 +24,10 @@
       path: /etc/mongod.conf
       regexp: "127.0.0.1"
       line: "0.0.0.0"
-    handlers:
-    - name: restart nginx 
-      ansible.builtin.service:
-        name: mongodb
-        state: restarted
+    notify: restart mongod service 
+
+  handlers:
+  - name: restart mongod service 
+    ansible.builtin.service:
+      name: mongodb
+      state: restarted
