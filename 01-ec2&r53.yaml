@@ -35,6 +35,7 @@
     - rabbitmq
     tag:
     - ec2
+
   #   register: ec2_info
 
   # - name: print ec2 information
