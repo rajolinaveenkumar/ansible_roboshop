@@ -8,16 +8,16 @@
     INSTANCE_TYPE: t3.micro
     ZONE_NAME: naveenrajoli.site
   tasks:
-  # - name: installing python libraries 
-  #   ansible.builtin.pip:
-  #     name: "{{ item }}"
-  #     executable: pip3.9
-  #   loop:
-  #   - boto
-  #   - boto3
-  #   - botocore
-  #   - PyMySQL
-  #   - cryptography
+  - name: installing python libraries 
+    ansible.builtin.pip:
+      name: "{{ item }}"
+      executable: pip3.9
+    loop:
+    - boto
+    - boto3
+    - botocore
+    - PyMySQL
+    - cryptography
 
 
   - name: Creating EC2 instances
