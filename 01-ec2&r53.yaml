@@ -33,7 +33,7 @@
     - redis
     - mysql
     - rabbitmq
-    tag:
+    tags:
     - ec2
 
   #   register: ec2_info
