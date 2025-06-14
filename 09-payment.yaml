@@ -30,7 +30,7 @@
       dest: /app
       remote_src: yes
 
-  - name: Install bottle python package
+  - name: Install python package
     ansible.builtin.pip:
       requirements: /app/requirements.txt
 
