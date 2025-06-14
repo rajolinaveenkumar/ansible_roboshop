@@ -7,3 +7,14 @@
 
   - name: enable redis 7 version
     ansible.builtin.command: dnf module enable redis:7 -y
+
+  - name: install redis
+    ansible.builtin.dnf:
+      name: redis
+      state: installed 
+
+  # - name: editing the redis configuration file
+  #   ansible.builtin.replace:
+  #     path: /etc/redis/redis.conf
+  #     regexp: 
+  #     replace:
