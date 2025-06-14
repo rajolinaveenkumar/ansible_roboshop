@@ -13,8 +13,11 @@
       name: redis
       state: installed 
 
-  # - name: editing the redis configuration file
-  #   ansible.builtin.replace:
-  #     path: /etc/redis/redis.conf
-  #     regexp: 
-  #     replace:
+  - name: editing the redis configuration file
+    ansible.builtin.replace:
+      path: /etc/redis/redis.conf
+      regexp: "{{ item.old }}"
+      replace: "{{ item.new }}"
+    loop:
+    - { old: 127.0.0.1, new: 0.0.0.0}
+    - { old: "protected-mode yes", new: "protected-mode no" }
