@@ -2,7 +2,7 @@
   hosts: mongodb_servers
   become: yes
   vars:
-  taks:
+  tasks:
   - name: copy MongoDB repo file
     ansible.builtin.copy:
       src: 01-mongo.repo
