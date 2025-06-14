@@ -33,6 +33,9 @@
     - redis
     - mysql
     - rabbitmq
+    - catalogue
+    - user
+    - cart
     register: ec2_info
 
   # - name: print ec2 information
