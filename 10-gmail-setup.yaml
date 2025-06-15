@@ -16,3 +16,37 @@
       name: postfix
       state: started
       enabled: true
+
+  - name: Configure postfix relay settings
+    ansible.builtin.blockinfile:
+      path: /etc/postfix/main.cf
+      block: |
+        relayhost = [smtp.gmail.com]:587
+        smtp_use_tls = yes
+        smtp_sasl_auth_enable = yes
+        smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+        smtp_sasl_security_options = noanonymous
+        smtp_sasl_tls_security_options = noanonymous
+        smtpd_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
+      marker: "# {mark} POSTFIX RELAY SETTINGS"
+      create: yes
+    become: true
+
+      
+  - name: Create and add Gmail SMTP credentials to sasl_passwd
+    ansible.builtin.lineinfile:
+      path: /etc/postfix/sasl_passwd
+      line: "[smtp.gmail.com]:587 keerthirajoli04@gmail.com:szpkcivtzsxetmmu"
+      create: yes
+      state: present
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    
