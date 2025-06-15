@@ -38,6 +38,7 @@
     - cart
     - shipping
     - payment
+    - dispatch
     - frontend
     register: ec2_info
 
