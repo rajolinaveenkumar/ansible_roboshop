@@ -52,7 +52,7 @@
         legacy = legacy
 
   - name: send mailx
-    ansible.builtin.shell: "echo 'This is a test mail & Date $(date)' | mutt -s 'message' naveenrajoli@gmail.com"
+    ansible.builtin.shell: "echo 'This is a test mail & Date $(date)' | mutt -s 'message' naveenrajoli04@gmail.com"
 
       
       
