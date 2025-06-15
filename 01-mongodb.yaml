@@ -1,7 +1,6 @@
 - name: Installing MongoDB database for Roboshop project
   hosts: mongodb_servers
   become: yes
-  vars:
   tasks:
   - name: copy MongoDB repo file
     ansible.builtin.copy:

@@ -27,7 +27,7 @@
       state: directory
       path: /app
 
-  - name: download catalogue content
+  - name: download user content
     ansible.builtin.unarchive:
       src: https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip
       dest: /app
@@ -37,7 +37,7 @@
     community.general.npm:
       path: /app
 
-  - name: copy catalogue service file
+  - name: copy user service file
     ansible.builtin.copy:
       src: 06-user.service
       dest: /etc/systemd/system/user.service
