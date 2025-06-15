@@ -63,7 +63,7 @@
   - name: check products loaded or not
     ansible.builtin.command: mongosh --host mongodb.naveenrajoli.site --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
     register: catalogue_output
-    ignore_erros: true
+  
 
   - name: print catalogue output
     ansible.builtin.debug:
