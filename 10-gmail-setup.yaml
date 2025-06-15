@@ -40,7 +40,18 @@
       create: yes
       state: present
       
-  - name: 
+  - name: Create a Postfix lookup table from the sasl_passwd
+    ansible.builtin.command: postmap /etc/postfix/sasl_passwd
+
+  - name: Add legacy provider in openssl.cnf under [provider_sect]
+    ansible.builtin.blockinfile:
+      path: /etc/ssl/openssl.cnf
+      marker: "; ANSIBLE MANAGED BLOCK: legacy provider"
+      insertafter: '^\[provider_sect\]'
+      block: |
+        legacy = legacy
+    notify: Restart services if needed
+
       
       
       
