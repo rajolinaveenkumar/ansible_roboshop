@@ -26,5 +26,29 @@
       dest: /app
       remote_src: yes
 
-  - name: install dependencies
-    
+  - name: Initialize Go module
+    ansible.builtin.shell: go mod init dispatch
+    args:
+      chdir: /app
+      
+  - name: Download Go dependencies
+    ansible.builtin.shell: go get
+    args:
+      chdir: /app
+
+  - name: Build Go project
+    ansible.builtin.shell: go build
+    args:
+      chdir: /app
+
+  - name: copy dispatch service file
+    ansible.builtin.copy:
+      src: 10-dispatch.service
+      dest: /etc/systemd/system/dispatch.service
+
+  - name:  daemon realod , enabled and start the service 
+    ansible.builtin.systemd_service:
+      daemon_reload: true
+      name: dispatch
+      state: started
+      enabled: true
