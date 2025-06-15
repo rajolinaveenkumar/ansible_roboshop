@@ -1,0 +1,30 @@
+- name: Installing dispatch component for Roboshop project
+  hosts: dispatch_servers
+  become: yes
+  tasks:
+  - name: installing golang
+    ansible.builtin.dnf:
+      name: golang
+      state: installed 
+
+  - name: create user for roboshop project 
+    ansible.builtin.user:
+      name: roboshop
+      state: present
+      comment: "roboshop system user"
+      home: /app
+      shell: /bin/bash
+
+  - name: create app directory 
+    ansible.builtin.file:
+      state: directory
+      path: /app
+
+  - name: download catalogue content
+    ansible.builtin.unarchive:
+      src: https://roboshop-artifacts.s3.amazonaws.com/dispatch-v3.zip
+      dest: /app
+      remote_src: yes
+
+  - name: install dependencies
+    
